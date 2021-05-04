@@ -1,6 +1,6 @@
 #  ApiRTC iOS Tutorials
 
-You can check our sample application on [our Github page](https://github.com/apizee/ApiRTC-ios-sample)
+Samples for [ApiRTC iOS SDK](https://github.com/apizee/ApiRTC-iOS-SDK).
 
 ## Web samples
 
