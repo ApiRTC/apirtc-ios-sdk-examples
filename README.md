@@ -181,13 +181,12 @@ call.replacePublishedStream(streamId: stream.id, withStream: newStream) { (error
 Media muting
 Muting / unmuting your local stream can easily be done using muteAudio(), unmuteAudio(), muteVideo(), unmuteVideo() of Stream functions.
 ```
-//muteAudio from call
 localStream.muteAudio()
-//unmuteAudio from call
+
 localStream.unmuteAudio()
-//muteVideo from call
+
 localStream.muteVideo()
-//unmuteVideo from call
+
 localStream.unmuteVideo()
 ```
 
@@ -226,7 +225,7 @@ conversation.startWhiteboardSession { (error, client) in
         showError(error)
         return
     }
-    //Getting whiteboardClient in order to be able to set UI parameters
+    // Getting whiteboardClient in order to be able to set UI parameters
     guard let whiteboardClient = ua.getWhiteboardClient() else {
         showError("No whiteboard client")
         return

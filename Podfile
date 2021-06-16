@@ -6,7 +6,7 @@ target 'SampleApp' do
 	pod 'Eureka', '5.3.3'
 	pod 'SnapKit', '5.0.1'
 	pod 'SwiftMessages', '9.0.2'
-	pod 'ApiRTCSDK', '0.0.9'
+	pod 'ApiRTCSDK', '0.0.10'
 end
 
 post_install do |installer|
