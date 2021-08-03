@@ -32,10 +32,8 @@ class StreamsViewController: ConversationViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
 
-        ApiRTC.setCloudServerAvailabilityChecker(enabled: true)
         ApiRTC.setLogTypes([.info, .warning, .error, .debug, .cloud])
         ApiRTC.setMetaInfoLog(enabled: true)
-        ApiRTC.setPresenceLogSuppressed(true)
         
         ua = UserAgent(UserAgentOptions(uri: .apzkey(Config.apiKey)))
         

@@ -59,7 +59,7 @@ class ConversationMuteViewController: ConversationViewController {
     }
         
     func muteUnmuteAudio() {
-        if localStream.isAudioMuted() {
+        if localStream.isAudioMuted {
             localStream.unmuteAudio()
             muteAudioLocalStreamButtonRow.title = "Mute audio"
         }
@@ -71,7 +71,7 @@ class ConversationMuteViewController: ConversationViewController {
     }
     
     func muteUnmuteVideo() {
-        if localStream.isVideoMuted() {
+        if localStream.isVideoMuted {
             localStream.unmuteVideo()
             muteVideoLocalStreamButtonRow.title = "Mute video"
         }
@@ -84,7 +84,7 @@ class ConversationMuteViewController: ConversationViewController {
     
     override func handleNewStream(_ stream: ApiRTCStream) {
         super.handleNewStream(stream)
-        if stream.direction == .published {
+        if stream.direction == .outgoing {
             localStream = stream
         }
     }

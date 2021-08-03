@@ -134,8 +134,7 @@ class ConversationAdvancedPublishSubscribeViewController: ConversationViewContro
             return
         }
 
-        let publishOptions = PublishOptions(mediaRestriction: mediaRestriction)
-        conversation.publish(stream: stream, options: publishOptions) { (error, stream) in
+        conversation.publish(stream: stream) { (error, stream) in
             if let error = error {
                 showError(error)
                 return
@@ -149,38 +148,41 @@ class ConversationAdvancedPublishSubscribeViewController: ConversationViewContro
             switch type {
             case .added:
                 if info.isRemote {
-                    if info.hasAuido && info.hasVideo {
-                        let buttonRow = ButtonRow() {
-                            $0.title = "Subscribe to stream " + info.streamId
-                            $0.tag = "streamlist" + info.streamId
-                        }
-                        .onCellSelection { cell, row in
-                            self.subscribeToStreamWithId(info.streamId)
-                        }
-                        streamListSection.append(buttonRow)
+                    let buttonRow = ButtonRow() {
+                        $0.title = "Subscribe to stream " + info.streamId
+                        $0.tag = "streamlist" + info.streamId
                     }
+                    .onCellSelection { cell, row in
+                        self.subscribeToStreamWithId(info.streamId)
+                    }
+                    streamListSection.append(buttonRow)
+                    
+//                    if info.isVideo && info.hasVideo {
+//
+//                    }
             
-                    if info.hasAuido {
-                        let audioButtonRow = ButtonRow() {
-                            $0.title = "Subscribe to audio stream " + info.streamId
-                            $0.tag = "streamlistaudio" + info.streamId
-                        }
-                        .onCellSelection { cell, row in
-                            self.subscribeToStreamWithId(info.streamId, mediaRestriction: .audioOnly)
-                        }
-                        streamListSection.append(audioButtonRow)
-                    }
-            
-                    if info.hasVideo {
-                        let videoButtonRow = ButtonRow() {
-                            $0.title = "Subscribe to video stream " + info.streamId
-                            $0.tag = "streamlistvideo" + info.streamId
-                        }
-                        .onCellSelection { cell, row in
-                            self.subscribeToStreamWithId(info.streamId, mediaRestriction: .videoOnly)
-                        }
-                        streamListSection.append(videoButtonRow)
-                    }
+                    //????
+//                    if info.hasAuido {
+//                        let audioButtonRow = ButtonRow() {
+//                            $0.title = "Subscribe to audio stream " + info.streamId
+//                            $0.tag = "streamlistaudio" + info.streamId
+//                        }
+//                        .onCellSelection { cell, row in
+//                            self.subscribeToStreamWithId(info.streamId, mediaRestriction: .audioOnly)
+//                        }
+//                        streamListSection.append(audioButtonRow)
+//                    }
+//
+//                    if info.hasVideo {
+//                        let videoButtonRow = ButtonRow() {
+//                            $0.title = "Subscribe to video stream " + info.streamId
+//                            $0.tag = "streamlistvideo" + info.streamId
+//                        }
+//                        .onCellSelection { cell, row in
+//                            self.subscribeToStreamWithId(info.streamId, mediaRestriction: .videoOnly)
+//                        }
+//                        streamListSection.append(videoButtonRow)
+//                    }
                 }
             case .removed:
                 if let rowNum = form.rowBy(tag: "streamlist" + info.streamId)?.indexPath?.row {
@@ -212,8 +214,7 @@ class ConversationAdvancedPublishSubscribeViewController: ConversationViewContro
             return
         }
         
-        let subscribeOptions = SubscribeOptions(mediaRestriction: mediaRestriction)
-        conversation.subscribeToStream(streamId: streamId, options: subscribeOptions)
+        conversation.subscribeToStream(streamId: streamId)
     }
 
     override func handleNewStream(_ stream: ApiRTCStream) {
@@ -222,7 +223,7 @@ class ConversationAdvancedPublishSubscribeViewController: ConversationViewContro
             super.handleNewStream(stream)
             
             switch stream.direction {
-            case .published:
+            case .outgoing:
                 if let rowNum = form.rowBy(tag: "publish")?.indexPath?.row {
                     publishSection.remove(at: rowNum)
                 }
@@ -240,7 +241,7 @@ class ConversationAdvancedPublishSubscribeViewController: ConversationViewContro
                     self.unpublishStreamWithId(stream.id)
                 }
                 publishSection.append(unpublishButtonRow)
-            case .subscribed:
+            case .incoming:
                 if let rowNum = form.rowBy(tag: "streamlist" + stream.id)?.indexPath?.row {
                     streamListSection.remove(at: rowNum)
                 }

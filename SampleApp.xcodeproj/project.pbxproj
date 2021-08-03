@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0541BEEB0CCEF0D443D27D33 /* Pods_App_SampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39397699BC0DD41F6FC71A22 /* Pods_App_SampleApp.framework */; };
 		4124DB9C2201C5B6005E4183 /* RemoteStreamRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4124DB9B2201C5B6005E4183 /* RemoteStreamRow.swift */; };
 		4124DBA32201DA48005E4183 /* LocalStreamRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4124DBA22201DA48005E4183 /* LocalStreamRow.swift */; };
 		412B8F4E224A357100243B7E /* StreamCast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B8F4D224A357100243B7E /* StreamCast.swift */; };
+		414597F426B996020011708D /* ApiRTCSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41C3B044264180DA00C74E05 /* ApiRTCSDK.framework */; };
+		414597F526B996020011708D /* ApiRTCSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 41C3B044264180DA00C74E05 /* ApiRTCSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		414CEE6222957D15000D52FF /* ActivityRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEE6122957D15000D52FF /* ActivityRow.swift */; };
 		416D541F21EE0E9E00F81BE8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 416D541E21EE0E9E00F81BE8 /* AudioToolbox.framework */; };
 		416D542121EE0EBE00F81BE8 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 416D542021EE0EBE00F81BE8 /* NetworkExtension.framework */; };
@@ -33,10 +36,24 @@
 		B5195CE62578F9670019C267 /* ConversationAdvancedPublishSubscribeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5195CE52578F9670019C267 /* ConversationAdvancedPublishSubscribeViewController.swift */; };
 		B5195CE82578F9800019C267 /* ConversationJoinLeaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5195CE72578F9800019C267 /* ConversationJoinLeaveViewController.swift */; };
 		B5195CEB257D77800019C267 /* StreamsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5195CEA257D77800019C267 /* StreamsViewController.swift */; };
-		DFD07276AD72F92279A86D5A /* Pods_SampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FE20B21B04D33B32E0FCF3E /* Pods_SampleApp.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		414597F626B996020011708D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				414597F526B996020011708D /* ApiRTCSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		39397699BC0DD41F6FC71A22 /* Pods_App_SampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App_SampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4124DB9B2201C5B6005E4183 /* RemoteStreamRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStreamRow.swift; sourceTree = "<group>"; };
 		4124DBA22201DA48005E4183 /* LocalStreamRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStreamRow.swift; sourceTree = "<group>"; };
 		412B8F4D224A357100243B7E /* StreamCast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamCast.swift; sourceTree = "<group>"; };
@@ -58,7 +75,6 @@
 		41BDA442215A815900230631 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41C3B044264180DA00C74E05 /* ApiRTCSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ApiRTCSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		744EBD941D9006D0F1A28981 /* Pods-SampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleApp.debug.xcconfig"; path = "Target Support Files/Pods-SampleApp/Pods-SampleApp.debug.xcconfig"; sourceTree = "<group>"; };
-		8FE20B21B04D33B32E0FCF3E /* Pods_SampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5195CD2257684F60019C267 /* ConversationStartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationStartViewController.swift; sourceTree = "<group>"; };
 		B5195CD7257685140019C267 /* UserAgentStartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentStartViewController.swift; sourceTree = "<group>"; };
 		B5195CD8257685140019C267 /* UserAgentRegistrationExternViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentRegistrationExternViewController.swift; sourceTree = "<group>"; };
@@ -80,9 +96,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				414597F426B996020011708D /* ApiRTCSDK.framework in Frameworks */,
 				416D542121EE0EBE00F81BE8 /* NetworkExtension.framework in Frameworks */,
 				416D541F21EE0E9E00F81BE8 /* AudioToolbox.framework in Frameworks */,
-				DFD07276AD72F92279A86D5A /* Pods_SampleApp.framework in Frameworks */,
+				0541BEEB0CCEF0D443D27D33 /* Pods_App_SampleApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,7 +112,7 @@
 				416D542021EE0EBE00F81BE8 /* NetworkExtension.framework */,
 				416D541E21EE0E9E00F81BE8 /* AudioToolbox.framework */,
 				41C3B044264180DA00C74E05 /* ApiRTCSDK.framework */,
-				8FE20B21B04D33B32E0FCF3E /* Pods_SampleApp.framework */,
+				39397699BC0DD41F6FC71A22 /* Pods_App_SampleApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -223,6 +240,7 @@
 				41BDA430215A815700230631 /* Frameworks */,
 				41BDA431215A815700230631 /* Resources */,
 				7E82A501B9CB069ED84700BB /* [CP] Embed Pods Frameworks */,
+				414597F626B996020011708D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -306,7 +324,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SampleApp-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-App-SampleApp-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -319,15 +337,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SampleApp/Pods-SampleApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-App-SampleApp/Pods-App-SampleApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SampleApp/Pods-SampleApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-App-SampleApp/Pods-App-SampleApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SampleApp/Pods-SampleApp-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-App-SampleApp/Pods-App-SampleApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -501,7 +519,7 @@
 		};
 		41BDA446215A815900230631 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 744EBD941D9006D0F1A28981 /* Pods-SampleApp.debug.xcconfig */;
+			baseConfigurationReference = E71F051F3DE08E42C9847449 /* Pods-App-SampleApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLOUD_SERVER_URL = "https://cloud.apizee.com";
@@ -531,7 +549,7 @@
 		};
 		41BDA447215A815900230631 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B73EA13FD2E985B374990987 /* Pods-SampleApp.release.xcconfig */;
+			baseConfigurationReference = D7BA3C76DE897F596D4C3E3D /* Pods-App-SampleApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLOUD_SERVER_URL = "https://cloud.apizee.com";

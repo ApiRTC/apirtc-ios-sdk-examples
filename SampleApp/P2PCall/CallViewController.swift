@@ -74,7 +74,6 @@ class CallViewController: FormViewController {
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
             
-        ApiRTC.setCloudServerAvailabilityChecker(enabled: true)
         ApiRTC.setLogTypes([.info, .warning, .error, .debug, .cloud])
         ApiRTC.setMetaInfoLog(enabled: true)
                                 
@@ -262,27 +261,44 @@ class CallViewController: FormViewController {
         
         state = .dialing
         
-        session.getContact(id: targetId).call { (error, call) in
+        guard let contact = session.getContact(id: targetId) else {
+            showError("Contact is nil")
+            return
+        }
+        
+        var stream: ApiRTCStream!
+        
+        do {
+            stream = try ApiRTCStream.createCameraStream(position: .front)
+        }
+        catch {
+            showError("Stream creating error \(error)")
+            return
+        }
+        
+        contact.call(stream: stream) { error, call in
             if let error = error {
                 self.state = .def
                 showError(error)
                 return
             }
-            
+
             guard let call = call else {
                 self.state = .def
                 showError("Call is nil")
                 return
             }
-            
+
             self.activeCall = call
+            
+            self.handleNewLocalStream(stream)
         }
     }
     
     func handleIncomingInvitation(_ invitation: ReceivedCallInvitation) {
         
         func handle() {
-            opponentIdRow.value = invitation.getSender().id
+            opponentIdRow.value = invitation.getSender()?.id
             opponentIdRow.reload()
             
             invitation.onEvent(self) { [weak self] (event) in
@@ -312,7 +328,18 @@ class CallViewController: FormViewController {
     }
     
     func acceptInvitation() {
-        incomingInvitation?.accept(completion: { (error, call) in
+        
+        var stream: ApiRTCStream!
+        
+        do {
+            stream = try ApiRTCStream.createCameraStream(position: .front)
+        }
+        catch {
+            showError("Stream creating error \(error)")
+            return
+        }
+        
+        incomingInvitation?.accept(stream: stream, completion: { error, call in
             if let error = error {
                 showError(error)
                 return
@@ -354,12 +381,8 @@ class CallViewController: FormViewController {
                 self.handleCallDecline()
             case .hangup:
                 self.handleRemoteHangUp()
-            case .localStreamAvailable(let localStream):
-                self.handleNewLocalStream(localStream)
             case .streamAdded(let remoteStream):
                 self.handleNewRemoteStream(remoteStream)
-            case .error(let error):
-                showError(error)
             default:
                 break
             }
@@ -408,29 +431,6 @@ class CallViewController: FormViewController {
         
         DispatchQueue.main.async {
             self.activeCall = nil
-        }
-    }
-    
-    // MARK:
-
-    func test() {
-
-    }
-    
-    // MARK:
-    
-    func shareLog() {
-        do {
-            guard let url = try ApiRTC.getLogFileURL() else {
-                showError("URL is nil")
-                return
-            }
-            let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-            present(activityVC, animated: true, completion: nil)
-        }
-        catch {
-            showError(error)
-            return
         }
     }
 }

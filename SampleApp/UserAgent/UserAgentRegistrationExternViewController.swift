@@ -44,7 +44,6 @@ class UserAgentRegistrationExternalViewController: FormViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
         
-        ApiRTC.setCloudServerAvailabilityChecker(enabled: true)
         ApiRTC.setLogTypes([.info, .warning, .error, .debug, .cloud])
         ApiRTC.setMetaInfoLog(enabled: true)
                 
@@ -125,9 +124,8 @@ class UserAgentRegistrationExternalViewController: FormViewController {
     func register() {
         
         showActivityView()
-        
-        let registerInfo = RegisterInformation(id: userIdRow.value)
-        ua.register(registerInformation: registerInfo) { (error, session) in
+
+        ua.register() { (error, session) in
             if let error = error {
                 showError(error)
                 return

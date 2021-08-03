@@ -51,10 +51,8 @@ class ConversationViewController: FormViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
 
-        ApiRTC.setCloudServerAvailabilityChecker(enabled: true)
         ApiRTC.setLogTypes([.info, .warning, .error, .debug, .cloud])
         ApiRTC.setMetaInfoLog(enabled: true)
-        ApiRTC.setPresenceLogSuppressed(true)
         
         ua = UserAgent(UserAgentOptions(uri: .apzkey(Config.apiKey)))
         
@@ -276,12 +274,12 @@ class ConversationViewController: FormViewController {
         
         func handle() {
             switch stream.direction {
-            case .published:
+            case .outgoing:
                 let newLocalStreamRow = LocalStreamRow()
                 newLocalStreamRow.tag = stream.id
                 streamsSection.append(newLocalStreamRow)
                 newLocalStreamRow.cell.addStream(stream)
-            case .subscribed:
+            case .incoming:
                 let remoteStreamRow = RemoteStreamRow()
                 remoteStreamRow.tag = stream.id
                 streamsSection.append(remoteStreamRow)

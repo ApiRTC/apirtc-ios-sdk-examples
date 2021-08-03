@@ -40,32 +40,17 @@ public class LocalStreamCell: Cell<Bool>, CellType {
     open func addStream(_ stream: ApiRTCStream) {
         switch stream.type {
         case .video, .videoOnly:
-            guard let captureSession = stream.captureSession else {
-                print("WARNING: Capture session is nil")
-                return
-            }
             cameraView = CameraView(frame: contentView.bounds)
             cameraView?.backgroundColor = .clear
             contentView.addSubview(cameraView!)
             cameraView?.snp.makeConstraints({ (make) in
                 make.edges.equalTo(0)
             })
-            cameraView?.captureSession = captureSession
-        case .externalCamera:
-            externalCameraView = UIImageView(frame: contentView.bounds)
-            externalCameraView?.backgroundColor = .clear
-            contentView.addSubview(externalCameraView!)
-            externalCameraView?.snp.makeConstraints({ (make) in
-                make.edges.equalTo(0)
-            })
-            stream.onEvent(self) { [weak self] (event) in
-                guard let `self` = self else {
-                    return
-                }
+            stream.onEvent(self) { event in
                 switch event {
-                case .externalCameraFrame(let image):
+                case .captureSession(let session):
                     DispatchQueue.main.async {
-                        self.externalCameraView?.image = image
+                        self.cameraView?.captureSession = session
                     }
                 default:
                     break
@@ -73,7 +58,6 @@ public class LocalStreamCell: Cell<Bool>, CellType {
             }
         default:
             break
-            
         }
     }
     

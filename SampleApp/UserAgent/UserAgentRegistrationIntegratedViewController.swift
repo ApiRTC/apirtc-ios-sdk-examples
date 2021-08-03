@@ -48,7 +48,6 @@ class UserAgentRegistrationIntegratedViewController: FormViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
         
-        ApiRTC.setCloudServerAvailabilityChecker(enabled: true)
         ApiRTC.setLogTypes([.info, .warning, .error, .debug, .cloud])
         ApiRTC.setMetaInfoLog(enabled: true)
             

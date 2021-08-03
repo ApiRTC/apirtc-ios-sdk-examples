@@ -35,27 +35,32 @@ public class RemoteStreamCell: Cell<Bool>, CellType {
         
     open func addStream(_ stream: ApiRTCStream) {
         
-        guard let mediaStream = stream.mediaStream else {
-            print("Media stream is nil")
-            return
+        stream.onEvent(self) { [weak self] event in
+            guard let `self` = self else { return }
+            switch event {
+            case .mediaStream(let mediaStream):
+                DispatchQueue.main.async {
+                    guard let videoTrack = mediaStream.videoTracks.first else {
+                        print("Video track is nil")
+                        return
+                    }
+                    
+                    let videoView = VideoView(frame: self.contentView.bounds, renderer: .metal)
+                    videoView.contentMode = .scaleAspectFit
+                    self.contentView.addSubview(videoView)
+                    videoView.snp.makeConstraints { (make) in
+                        make.top.left.right.bottom.equalTo(0)
+                    }
+            
+                    self.videoTrack = videoTrack
+                    videoTrack.addRenderer(videoView.renderer)
+            
+                    self.videoView = videoView
+                }
+            default:
+                break
+            }
         }
-        
-        guard let videoTrack = mediaStream.videoTracks.first else {
-            print("Video track is nil")
-            return
-        }
-        
-        let videoView = VideoView(frame: contentView.bounds, renderer: .metal)
-        videoView.contentMode = .scaleAspectFit
-        self.contentView.addSubview(videoView)
-        videoView.snp.makeConstraints { (make) in
-            make.top.left.right.bottom.equalTo(0)
-        }
-        
-        self.videoTrack = videoTrack
-        videoTrack.addRenderer(videoView.renderer)
-        
-        self.videoView = videoView
     }
     
     open func removeStream() {
