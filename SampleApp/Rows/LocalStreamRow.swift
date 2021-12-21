@@ -27,7 +27,7 @@ public class LocalStreamCell: Cell<Bool>, CellType {
     
     public override func setup() {
         super.setup()
-        
+                
         height = {
             return 200
         }
@@ -38,6 +38,7 @@ public class LocalStreamCell: Cell<Bool>, CellType {
     }
     
     open func addStream(_ stream: ApiRTCStream) {
+        
         switch stream.type {
         case .video, .videoOnly:
             cameraView = CameraView(frame: contentView.bounds)

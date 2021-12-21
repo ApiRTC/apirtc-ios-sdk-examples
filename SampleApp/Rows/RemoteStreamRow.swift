@@ -32,7 +32,7 @@ public class RemoteStreamCell: Cell<Bool>, CellType {
     public override func update() {
         super.update()
     }
-        
+            
     open func addStream(_ stream: ApiRTCStream) {
         
         stream.onEvent(self) { [weak self] event in

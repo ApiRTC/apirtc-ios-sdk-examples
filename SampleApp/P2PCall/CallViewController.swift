@@ -29,9 +29,9 @@ class CallViewController: FormViewController {
     
     var incomingInvitation: ReceivedCallInvitation?
     
-    var activeCall: Call? {
+    var currentCall: Call? {
         didSet {
-            if let call = activeCall {
+            if let call = currentCall {
                 handleCall(call)
             }
         }
@@ -74,7 +74,7 @@ class CallViewController: FormViewController {
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
             
-        ApiRTC.setLogTypes([.info, .warning, .error, .debug, .cloud])
+        ApiRTC.setLogTypes([.info, .warning, .error, .debug, .cloud, .socket])
         ApiRTC.setMetaInfoLog(enabled: true)
                                 
         ua = UserAgent(UserAgentOptions(uri: .apzkey(Config.apiKey)))
@@ -83,7 +83,7 @@ class CallViewController: FormViewController {
             guard let `self` = self else {
                 return
             }
-
+            
             if let error = error {
                 self.hideActivityView()
                 showError(error)
@@ -99,6 +99,11 @@ class CallViewController: FormViewController {
             session.onEvent(self, { (event) in
                 switch event {
                 case .incomingCall(let invitation):
+                    guard let call = invitation.getCall() else {
+                        showError("Call nil")
+                        return
+                    }
+                    self.currentCall = call
                     self.handleIncomingInvitation(invitation)
                 default:
                     break
@@ -222,7 +227,7 @@ class CallViewController: FormViewController {
             dialSection.show()
             incomingCallSection.hide()
             callSection.hide()
-            streamsSection.hide()
+            streamsSection.show()
         case .incomingCall:
             opponentInfoSection.show()
             dialSection.hide()
@@ -289,7 +294,7 @@ class CallViewController: FormViewController {
                 return
             }
 
-            self.activeCall = call
+            self.currentCall = call
             
             self.handleNewLocalStream(stream)
         }
@@ -317,7 +322,7 @@ class CallViewController: FormViewController {
                     break
                 }
             }
-            
+                        
             incomingInvitation = invitation
             
             state = .incomingCall
@@ -344,12 +349,8 @@ class CallViewController: FormViewController {
                 showError(error)
                 return
             }
-            guard let call = call else {
-                showError("Call is nil")
-                return
-            }
-            self.activeCall = call
             self.state = .call
+            self.handleNewLocalStream(stream)
         })
     }
     
@@ -369,7 +370,7 @@ class CallViewController: FormViewController {
     }
     
     func handleCall(_ call: Call) {
-        
+
         call.onEvent(self) { [weak self] (event) in
             guard let `self` = self else {
                 return
@@ -409,8 +410,8 @@ class CallViewController: FormViewController {
         
         state = .def
         
-        activeCall?.hangUp(completion: { [weak self] in
-            self?.activeCall = nil
+        currentCall?.hangUp(completion: { [weak self] in
+            self?.currentCall = nil
         })
     }
     
@@ -430,7 +431,7 @@ class CallViewController: FormViewController {
         showMessage("Call hang up")
         
         DispatchQueue.main.async {
-            self.activeCall = nil
+            self.currentCall = nil
         }
     }
 }
