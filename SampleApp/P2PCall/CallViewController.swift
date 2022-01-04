@@ -13,6 +13,7 @@
 import UIKit
 import ApiRTCSDK
 import Eureka
+import AVFoundation
 
 enum CallViewControllerState {
     case def
@@ -45,6 +46,8 @@ class CallViewController: FormViewController {
         }
     }
     
+    var captureDevicePosition: AVCaptureDevice.Position = .front
+    
     var localIdRow: LabelRow!
     
     var opponentInfoSection: Section!
@@ -59,6 +62,7 @@ class CallViewController: FormViewController {
     var incomingCallDenyButtonRow: ButtonRow!
     
     var callSection: Section!
+    var switchCameraRow: ButtonRow!
     var callHangUpButtonRow: ButtonRow!
     
     var streamsSection: Section!
@@ -66,18 +70,14 @@ class CallViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
                 
-        if #available(iOS 13.0, *) {
-             overrideUserInterfaceStyle = .light
-         }
-        
         showActivityView()
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
             
-        ApiRTC.setLogTypes([.info, .warning, .error, .debug, .cloud, .socket])
+        ApiRTC.setLogTypes(.info, .warning, .error, .debug, .cloud, .socket)
         ApiRTC.setMetaInfoLog(enabled: true)
                                 
-        ua = UserAgent(UserAgentOptions(uri: .apzkey(Config.apiKey)))
+        ua = UserAgent(UserAgentOptions(uri: .apikey(Config.apiKey)))
         
         ua.register() { [weak self] (error, session) in
             guard let `self` = self else {
@@ -169,6 +169,13 @@ class CallViewController: FormViewController {
         
         callSection = Section("Ongoing call")
         
+        switchCameraRow = ButtonRow() {
+                $0.title = "Switch camera"
+            }
+            .onCellSelection { cell, row in
+                self.switchCamera()
+            }
+        
         callHangUpButtonRow = ButtonRow() {
                 $0.title = "HangUp"
                 $0.cell.tintColor = .red
@@ -191,6 +198,7 @@ class CallViewController: FormViewController {
             <<< incomingCallAcceptButtonRow
             <<< incomingCallDenyButtonRow
             +++ callSection
+            <<< switchCameraRow
             <<< callHangUpButtonRow
             +++ streamsSection
         
@@ -274,13 +282,15 @@ class CallViewController: FormViewController {
         var stream: ApiRTCStream!
         
         do {
-            stream = try ApiRTCStream.createCameraStream(position: .front)
+            stream = try ApiRTCStream.createCameraStream(position: captureDevicePosition)
         }
         catch {
             showError("Stream creating error \(error)")
             return
         }
         
+        handleNewLocalStream(stream)
+
         contact.call(stream: stream) { error, call in
             if let error = error {
                 self.state = .def
@@ -295,8 +305,6 @@ class CallViewController: FormViewController {
             }
 
             self.currentCall = call
-            
-            self.handleNewLocalStream(stream)
         }
     }
     
@@ -337,12 +345,14 @@ class CallViewController: FormViewController {
         var stream: ApiRTCStream!
         
         do {
-            stream = try ApiRTCStream.createCameraStream(position: .front)
+            stream = try ApiRTCStream.createCameraStream(position: captureDevicePosition)
         }
         catch {
             showError("Stream creating error \(error)")
             return
         }
+        
+        handleNewLocalStream(stream)
         
         incomingInvitation?.accept(stream: stream, completion: { error, call in
             if let error = error {
@@ -350,7 +360,6 @@ class CallViewController: FormViewController {
                 return
             }
             self.state = .call
-            self.handleNewLocalStream(stream)
         })
     }
     
@@ -404,6 +413,27 @@ class CallViewController: FormViewController {
             self.streamsSection.append(remoteStreamRow)
             remoteStreamRow.cell.addStream(stream)
         }
+    }
+    
+    func switchCamera() {
+        
+        captureDevicePosition = captureDevicePosition == .front ? .back : .front
+        
+        var stream: ApiRTCStream!
+        
+        do {
+            stream = try ApiRTCStream.createCameraStream(position: captureDevicePosition)
+        }
+        catch {
+            showError("Stream creating error \(error)")
+            return
+        }
+        
+        currentCall?.replacePublishedStream(withStream: stream, completion: { error in
+            if let error = error {
+                showError("Stream replacement error \(error)")
+            }
+        })
     }
     
     func hangUp() {

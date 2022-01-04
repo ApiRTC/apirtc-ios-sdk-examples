@@ -15,10 +15,6 @@ class StartViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if #available(iOS 13.0, *) {
-             overrideUserInterfaceStyle = .light
-         }
-        
         form = Form()
         
         form

@@ -21,10 +21,11 @@ class ActivityView: UIView {
     
     private func initUI() {
         
-        self.backgroundColor = UIColor.white.withAlphaComponent(0.6)
+        backgroundColor = UIColor.white.withAlphaComponent(0.6)
         
-        let activityIndicator = UIActivityIndicatorView(style: .gray)
-        self.addSubview(activityIndicator)
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.color = UIColor.black.withAlphaComponent(0.7)
+        addSubview(activityIndicator)
         activityIndicator.snp.makeConstraints { (make) in
             make.width.height.equalTo(50)
             make.center.equalTo(snp.center)

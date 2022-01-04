@@ -42,13 +42,9 @@ class UserAgentRegistrationIntegratedViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if #available(iOS 13.0, *) {
-            overrideUserInterfaceStyle = .light
-        }
-        
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
         
-        ApiRTC.setLogTypes([.info, .warning, .error, .debug, .cloud])
+        ApiRTC.setLogTypes(.info, .warning, .error, .debug, .cloud)
         ApiRTC.setMetaInfoLog(enabled: true)
             
         initUI()
@@ -157,7 +153,7 @@ class UserAgentRegistrationIntegratedViewController: FormViewController {
             showError("Login is nil")
             return
         }
-        ua = UserAgent(UserAgentOptions(uri: .apizee(login)))
+        ua = UserAgent(UserAgentOptions(uri: .apikey(login)))
         state = .unregister
         DispatchQueue.main.async {
             if let rowNum = self.form.rowBy(tag: "CreateUserAgent")?.indexPath?.row {

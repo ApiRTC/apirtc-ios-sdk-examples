@@ -38,16 +38,12 @@ class UserAgentRegistrationExternalViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if #available(iOS 13.0, *) {
-            overrideUserInterfaceStyle = .light
-        }
-        
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
         
-        ApiRTC.setLogTypes([.info, .warning, .error, .debug, .cloud])
+        ApiRTC.setLogTypes(.info, .warning, .error, .debug, .cloud)
         ApiRTC.setMetaInfoLog(enabled: true)
                 
-        ua = UserAgent(UserAgentOptions(uri: .apzkey(Config.apiKey)))
+        ua = UserAgent(UserAgentOptions(uri: .apikey(Config.apiKey)))
             
         initUI()
     }

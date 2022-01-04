@@ -30,8 +30,8 @@ public class ActivityCell: Cell<Bool>, CellType {
             return 50
         }
         
-        activityIndicator = UIActivityIndicatorView(style: .gray)
-        self.contentView.addSubview(activityIndicator)
+        activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.color = UIColor.black.withAlphaComponent(0.7)
         activityIndicator.snp.makeConstraints { (make) in
             make.width.height.equalTo(50)
             make.left.top.equalTo(0)
@@ -40,7 +40,7 @@ public class ActivityCell: Cell<Bool>, CellType {
         
         label = UILabel()
         label.text = row.tag
-        self.contentView.addSubview(label)
+        contentView.addSubview(label)
         label.snp.makeConstraints { (make) in
             make.top.right.bottom.equalTo(0)
             make.left.equalTo(activityIndicator.snp.right)
