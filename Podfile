@@ -11,21 +11,21 @@ project '../ios-apirtc-sdk/ApiRTCSDK.xcodeproj'
 
 abstract_target 'App' do
 
-    pod 'RxSwift', '6.2.0'
-    pod 'RxRelay', '6.2.0'
+    pod 'RxSwift', '6.5.0'
+    pod 'RxRelay', '6.5.0'
     pod 'GoogleWebRTC', '1.1.31999'
     pod 'CocoaAsyncSocket', '7.6.5'
     pod 'Socket.IO-Client-Swift', '16.0.1'
-    pod 'Alamofire', '5.4.4'
+    pod 'Alamofire', '5.5.0'
     pod 'Resolver', '1.5.0'
-    pod 'ReactorKit', '3.1.0'
+    pod 'ReactorKit', '3.2.0'
     pod 'Connectivity', '5.0.0'
 
 	target 'SampleApp' do
 		project 'SampleApp.xcodeproj'
 		pod 'Eureka', '5.3.4'
 		pod 'SnapKit', '5.0.1'
-		pod 'SwiftMessages', '9.0.2'
+		pod 'SwiftMessages', '9.0.6'
 		#pod 'ApiRTCSDK', '0.0.10'
 	end
 

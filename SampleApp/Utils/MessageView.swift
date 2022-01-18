@@ -20,7 +20,7 @@ class MessageView: BaseView {
     private static var messageTopBottomOffset: CGFloat = 15
     private static var messageFont = UIFont.systemFont(ofSize: 13)
     private static var messageSideOffset: CGFloat = 15
-    private static var maxHeight = Config.UI.screenSize.height / 2
+    private static var maxHeight = UIScreen.main.bounds.size.height / 2
     
     private var _id: String = "undefined"
     
@@ -38,7 +38,7 @@ class MessageView: BaseView {
     
     private func initUI() {
         
-        var messageHeight = message.height(withConstrainedWidth: Config.UI.screenSize.width - 2 * T.messageSideOffset, font: T.messageFont)
+        var messageHeight = message.height(withConstrainedWidth: UIScreen.main.bounds.size.width - 2 * T.messageSideOffset, font: T.messageFont)
         if messageHeight > T.maxHeight {
             messageHeight = T.maxHeight
         }

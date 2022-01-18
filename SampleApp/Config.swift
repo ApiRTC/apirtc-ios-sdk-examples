@@ -12,17 +12,7 @@ import ApiRTCSDK
 struct Config {
     
     static var apiKey: String {
-        //showError("Enter your apiKey in the config")
+        // Enter your apiKey
         return "myDemoApiKey"
-    }
-    
-    static var cloudUrl: String? {
-        return infoDict()?["CLOUD_SERVER_URL"] as? String
-    }
-
-    struct UI {
-        static var screenSize: CGSize {
-            return UIScreen.main.bounds.size
-        }
     }
 }

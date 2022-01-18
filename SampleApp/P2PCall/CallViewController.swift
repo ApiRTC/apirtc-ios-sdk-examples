@@ -75,7 +75,6 @@ class CallViewController: FormViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
             
         ApiRTC.setLogTypes(.info, .warning, .error, .debug, .cloud, .socket)
-        ApiRTC.setMetaInfoLog(enabled: true)
                                 
         ua = UserAgent(UserAgentOptions(uri: .apikey(Config.apiKey)))
         
@@ -401,7 +400,11 @@ class CallViewController: FormViewController {
     
     func handleNewLocalStream(_ stream: ApiRTCStream) {
         DispatchQueue.main.async {
+            if let rowNum = self.form.rowBy(tag: "localStreamRow")?.indexPath?.row {
+                self.streamsSection.remove(at: rowNum)
+            }
             let newLocalStreamRow = LocalStreamRow()
+            newLocalStreamRow.tag = "localStreamRow"
             self.streamsSection.append(newLocalStreamRow)
             newLocalStreamRow.cell.addStream(stream)
         }
@@ -428,6 +431,8 @@ class CallViewController: FormViewController {
             showError("Stream creating error \(error)")
             return
         }
+        
+        handleNewLocalStream(stream)
         
         currentCall?.replacePublishedStream(withStream: stream, completion: { error in
             if let error = error {

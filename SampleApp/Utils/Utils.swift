@@ -202,12 +202,3 @@ func showMessage(_ message: String) {
         MessageView.show(label: "MESSAGE", message: message, backgroundColor: .darkGray)
     }
 }
-
-// MARK:
-
-func infoDict() -> [String: Any?]? {
-    if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
-        return NSDictionary(contentsOfFile: path) as? [String : Any?]
-    }
-    return nil
-}

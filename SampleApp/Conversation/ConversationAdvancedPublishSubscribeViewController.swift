@@ -157,32 +157,26 @@ class ConversationAdvancedPublishSubscribeViewController: ConversationViewContro
                     }
                     streamListSection.append(buttonRow)
                     
-//                    if info.isVideo && info.hasVideo {
-//
-//                    }
-            
-                    //????
-//                    if info.hasAuido {
-//                        let audioButtonRow = ButtonRow() {
-//                            $0.title = "Subscribe to audio stream " + info.streamId
-//                            $0.tag = "streamlistaudio" + info.streamId
-//                        }
-//                        .onCellSelection { cell, row in
-//                            self.subscribeToStreamWithId(info.streamId, mediaRestriction: .audioOnly)
-//                        }
-//                        streamListSection.append(audioButtonRow)
-//                    }
-//
-//                    if info.hasVideo {
-//                        let videoButtonRow = ButtonRow() {
-//                            $0.title = "Subscribe to video stream " + info.streamId
-//                            $0.tag = "streamlistvideo" + info.streamId
-//                        }
-//                        .onCellSelection { cell, row in
-//                            self.subscribeToStreamWithId(info.streamId, mediaRestriction: .videoOnly)
-//                        }
-//                        streamListSection.append(videoButtonRow)
-//                    }
+                    if info.isVideo {
+                        let videoButtonRow = ButtonRow() {
+                            $0.title = "Subscribe to video stream " + info.streamId
+                            $0.tag = "streamlistvideo" + info.streamId
+                        }
+                        .onCellSelection { cell, row in
+                            self.subscribeToStreamWithId(info.streamId, mediaRestriction: .videoOnly)
+                        }
+                        streamListSection.append(videoButtonRow)
+                    }
+                    else if info.isAudio {
+                        let audioButtonRow = ButtonRow() {
+                            $0.title = "Subscribe to audio stream " + info.streamId
+                            $0.tag = "streamlistaudio" + info.streamId
+                        }
+                        .onCellSelection { cell, row in
+                            self.subscribeToStreamWithId(info.streamId, mediaRestriction: .audioOnly)
+                        }
+                        streamListSection.append(audioButtonRow)
+                    }
                 }
             case .removed:
                 if let rowNum = form.rowBy(tag: "streamlist" + info.streamId)?.indexPath?.row {
