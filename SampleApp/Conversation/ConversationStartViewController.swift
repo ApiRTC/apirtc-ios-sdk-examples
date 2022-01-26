@@ -38,5 +38,10 @@ class ConversationStartViewController: FormViewController {
                 $0.title = "Chat and push data"
                 $0.presentationMode = .segueName(segueName: "ConversationChatViewController", onDismiss: nil)
             }
+        
+            <<< ButtonRow() {
+                $0.title = "Whiteboard"
+                $0.presentationMode = .segueName(segueName: "ConversationStartViewController", onDismiss: nil)
+            }
     }
 }

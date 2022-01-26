@@ -11,6 +11,8 @@
 		411B55A927A0673C00CCB935 /* ConversationChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B55A827A0673C00CCB935 /* ConversationChatViewController.swift */; };
 		411B55AB27A0707900CCB935 /* ApiRTCSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 411B55AA27A0707900CCB935 /* ApiRTCSDK.framework */; };
 		411B55AC27A0707900CCB935 /* ApiRTCSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 411B55AA27A0707900CCB935 /* ApiRTCSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		411B55B227A1A2B600CCB935 /* ConversationWhiteboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B55B127A1A2B600CCB935 /* ConversationWhiteboardViewController.swift */; };
+		411B55B427A1A4A900CCB935 /* WhiteboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B55B327A1A4A900CCB935 /* WhiteboardViewController.swift */; };
 		4124DB9C2201C5B6005E4183 /* RemoteStreamRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4124DB9B2201C5B6005E4183 /* RemoteStreamRow.swift */; };
 		4124DBA32201DA48005E4183 /* LocalStreamRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4124DBA22201DA48005E4183 /* LocalStreamRow.swift */; };
 		412B8F4E224A357100243B7E /* StreamCast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B8F4D224A357100243B7E /* StreamCast.swift */; };
@@ -55,6 +57,8 @@
 		39397699BC0DD41F6FC71A22 /* Pods_App_SampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App_SampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		411B55A827A0673C00CCB935 /* ConversationChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationChatViewController.swift; sourceTree = "<group>"; };
 		411B55AA27A0707900CCB935 /* ApiRTCSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ApiRTCSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		411B55B127A1A2B600CCB935 /* ConversationWhiteboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationWhiteboardViewController.swift; sourceTree = "<group>"; };
+		411B55B327A1A4A900CCB935 /* WhiteboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhiteboardViewController.swift; sourceTree = "<group>"; };
 		4124DB9B2201C5B6005E4183 /* RemoteStreamRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStreamRow.swift; sourceTree = "<group>"; };
 		4124DBA22201DA48005E4183 /* LocalStreamRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStreamRow.swift; sourceTree = "<group>"; };
 		412B8F4D224A357100243B7E /* StreamCast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamCast.swift; sourceTree = "<group>"; };
@@ -125,6 +129,8 @@
 				B5195CE12576A6580019C267 /* ConversationMediaDeviceSelectionViewController.swift */,
 				B5195CE32578D52B0019C267 /* ConversationMuteViewController.swift */,
 				411B55A827A0673C00CCB935 /* ConversationChatViewController.swift */,
+				411B55B127A1A2B600CCB935 /* ConversationWhiteboardViewController.swift */,
+				411B55B327A1A4A900CCB935 /* WhiteboardViewController.swift */,
 			);
 			path = Conversation;
 			sourceTree = "<group>";
@@ -358,10 +364,12 @@
 				412B8F4E224A357100243B7E /* StreamCast.swift in Sources */,
 				411B55A927A0673C00CCB935 /* ConversationChatViewController.swift in Sources */,
 				41B2A4762200ADED00EBDA55 /* StartViewController.swift in Sources */,
+				411B55B227A1A2B600CCB935 /* ConversationWhiteboardViewController.swift in Sources */,
 				414CEE6222957D15000D52FF /* ActivityRow.swift in Sources */,
 				41BDA437215A815700230631 /* AppDelegate.swift in Sources */,
 				4124DBA32201DA48005E4183 /* LocalStreamRow.swift in Sources */,
 				B5195CEB257D77800019C267 /* StreamsViewController.swift in Sources */,
+				411B55B427A1A4A900CCB935 /* WhiteboardViewController.swift in Sources */,
 				B5195CDC257685140019C267 /* UserAgentUsingAccountRegistrationViewController.swift in Sources */,
 				4195CDCA220446A100E3F96E /* ActivityView.swift in Sources */,
 				B5195CE02576A38A0019C267 /* ConversationViewController.swift in Sources */,

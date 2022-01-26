@@ -83,6 +83,7 @@
                         <segue destination="ZOx-Lr-sP6" kind="show" identifier="ConversationMediaDeviceSelectionViewController" id="YmZ-lh-EMB"/>
                         <segue destination="Lto-0s-2Mr" kind="show" identifier="ConversationMuteViewController" id="96q-sn-brn"/>
                         <segue destination="dZW-lW-hnJ" kind="show" identifier="ConversationChatViewController" id="mOf-Ic-WjP"/>
+                        <segue destination="BNC-wX-jQg" kind="show" identifier="ConversationStartViewController" id="IQ3-Is-561"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tsJ-Rr-hS4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -135,7 +136,23 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZzA-Q2-Rn1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2126" y="754"/>
+            <point key="canvasLocation" x="1377" y="773"/>
+        </scene>
+        <!--Conversation Whiteboard View Controller-->
+        <scene sceneID="kuH-0c-K1H">
+            <objects>
+                <viewController id="BNC-wX-jQg" customClass="ConversationWhiteboardViewController" customModule="SampleApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6oN-oE-uvK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="jpU-AT-gwH"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Ss0-wJ-aDD"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5pU-BG-xGf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2126" y="772"/>
         </scene>
         <!--Conversation basic-->
         <scene sceneID="iyY-Sk-SHZ">

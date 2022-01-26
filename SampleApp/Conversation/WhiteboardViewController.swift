@@ -8,39 +8,29 @@
 
 import UIKit
 import ApiRTCSDK
+import SnapKit
 
 class WhiteboardViewController: UIViewController {
 
+    var whiteboardClient: WhiteboardClient!
+    
     var containerView: UIView!
+
+    init(_ whiteboardClient: WhiteboardClient) {
+        super.init(nibName: nil, bundle: nil)
+        self.whiteboardClient = whiteboardClient
+    }
     
-    var whiteboardView: WhiteboardView?
-    
-    var whiteboardClient: WhiteboardClient?
-    
-    deinit {
-        whiteboardClient?.removeObserver(self)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if #available(iOS 13.0, *) {
-             overrideUserInterfaceStyle = .light
-        }
-
-        guard let session = Session.getActiveSession() else {
-            showError("No active session")
-            return
-        }
-        let ua = session.getUserAgent()
-
-        guard let whiteboardClient = ua.getWhiteboardClient() else {
-            showError("No whiteboard client")
-            return
-        }
+        view.backgroundColor = .white
 
         containerView = UIView(frame: view.bounds)
-        containerView.backgroundColor = .yellow
         view.addSubview(containerView)
 
         let whiteboardView = WhiteboardView(frame: containerView.bounds)
@@ -48,23 +38,31 @@ class WhiteboardViewController: UIViewController {
         whiteboardClient.setView(whiteboardView)
         whiteboardView.setMode(.edit)
 
-        self.whiteboardClient = whiteboardClient
-        self.whiteboardView = whiteboardView
-        
         whiteboardClient.onEvent(self) { (event) in
             switch event {
-            case .newCanvasSize(let size):
+            case .updateCanvasSize(let size):
                 DispatchQueue.main.async {
                     whiteboardView.frame = CGRect(origin: .zero, size: size)
-                }
-            case .newBackgroundImage(let image):
-                DispatchQueue.main.async {
-                    whiteboardView.frame = CGRect(origin: .zero, size: image.size)
-                    whiteboardView.setBackgroundImage(image, contentMode: .topLeft)
                 }
             default:
                 break
             }
         }
+        
+        let closeButton = UIButton()
+        closeButton.setTitle("Close", for: .normal)
+        closeButton.setTitleColor(.black, for: .normal)
+        view.addSubview(closeButton)
+        closeButton.snp.makeConstraints { make in
+            make.top.equalTo(50)
+            make.left.equalTo(30)
+            make.width.equalTo(50)
+            make.height.equalTo(25)
+        }
+        closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
+    }
+    
+    @objc func close(_ sender: UIButton) {
+        dismiss(animated: true)
     }
 }
