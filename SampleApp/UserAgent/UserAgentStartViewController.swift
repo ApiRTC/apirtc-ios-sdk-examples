@@ -20,13 +20,13 @@ class UserAgentStartViewController: FormViewController {
             +++ Section()
         
             <<< ButtonRow() {
-                $0.title = "External user management"
-                $0.presentationMode = .segueName(segueName: "UserAgentRegistrationExternalViewController", onDismiss: nil)
+                $0.title = "Register as a guest"
+                $0.presentationMode = .segueName(segueName: "UserAgentGuestRegistrationViewController", onDismiss: nil)
             }
         
             <<< ButtonRow() {
-                $0.title = "Integrated user management"
-                $0.presentationMode = .segueName(segueName: "UserAgentRegistrationIntegratedViewController", onDismiss: nil)
+                $0.title = "Register using account"
+                $0.presentationMode = .segueName(segueName: "UserAgentUsingAccountRegistrationViewController", onDismiss: nil)
             }
     }
 }

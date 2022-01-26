@@ -1,5 +1,5 @@
 //
-//  UserAgentRegistrationExternalViewController.swift
+//  UserAgentUsingAccountRegistrationViewController.swift
 //  SampleApp
 //
 //  Created by Maelle Saiag on 05/11/2020.
@@ -10,18 +10,19 @@ import UIKit
 import Eureka
 import ApiRTCSDK
 
-enum UserAgentRegisterState {
+enum UserAgentRegisterInternState {
+    case initial
     case register
     case unregister
 }
 
-class UserAgentRegistrationExternalViewController: FormViewController {
+class UserAgentUsingAccountRegistrationViewController: FormViewController {
     
-    var ua: UserAgent!
+    var ua: UserAgent?
     
     var session: Session?
     
-    var state: UserAgentRegisterState = .unregister {
+    var state: UserAgentRegisterInternState = .initial {
         didSet {
             DispatchQueue.main.async {
                 self.handleState(self.state)
@@ -29,8 +30,11 @@ class UserAgentRegistrationExternalViewController: FormViewController {
         }
     }
     
+    var userAgentSection: Section!
+    var loginRow: TextRow!
+    var createUARow: ButtonRow!
     var registerSection: Section!
-    var userIdRow: TextRow!
+    var passwordRow: PasswordRow!
     var registerRow: ButtonRow!
     var resultSection: Section!
     var resultRow: LabelRow!
@@ -41,8 +45,6 @@ class UserAgentRegistrationExternalViewController: FormViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
         
         ApiRTC.setLogTypes(.info, .warning, .error, .debug, .cloud, .socket)
-                
-        ua = UserAgent(UserAgentOptions(uri: .apikey(Config.apiKey)))
             
         initUI()
     }
@@ -50,11 +52,21 @@ class UserAgentRegistrationExternalViewController: FormViewController {
     func initUI() {
         form = Form()
         
-        registerSection = Section()
+        userAgentSection = Section()
         
-        userIdRow = TextRow() {
-            $0.title = "User Id"
+        loginRow = TextRow() {
+            $0.title = "Your login"
         }
+        
+        createUARow = ButtonRow() {
+            $0.title = "Create User Agent"
+            $0.tag = "CreateUserAgent"
+        }
+        .onCellSelection { (cell, row) in
+            self.createUserAgent()
+        }
+        
+        registerSection = Section()
         
         registerRow = ButtonRow() {
             $0.title = "Register"
@@ -65,28 +77,40 @@ class UserAgentRegistrationExternalViewController: FormViewController {
                 self.unregister()
             case .unregister:
                 self.register()
+            default:
+                break
             }
+        }
+        
+        passwordRow = PasswordRow() {
+            $0.title = "Password"
+            $0.cell.textField.autocorrectionType = .no
         }
         
         resultSection = Section()
         
-        resultRow = LabelRow()
+        resultRow = LabelRow() {
+            $0.tag = "result"
+        }
             
         form
+            +++ userAgentSection
+            <<< loginRow
+            <<< createUARow
             +++ registerSection
-            <<< userIdRow
+            <<< passwordRow
             <<< registerRow
             +++ resultSection
             <<< resultRow
         
-        state = .unregister
+        state = .initial
     }
     
     @objc func close() {
         
         showActivityView()
         
-        ua.unregister { (error) in
+        ua?.unregister { (error) in
             if let error = error {
                 showError(error)
                 return
@@ -98,29 +122,55 @@ class UserAgentRegistrationExternalViewController: FormViewController {
         }
     }
     
-    func handleState(_ state: UserAgentRegisterState) {
+    func handleState(_ state: UserAgentRegisterInternState) {
         switch state {
         case .register:
             registerRow.title = "unregister"
         case .unregister:
             registerRow.title = "register"
+        default:
+        break
         }
         
         switch state {
+        case .initial:
+            userAgentSection.show()
+            registerSection.hide()
+            resultSection.hide()
         case .register:
+            userAgentSection.show()
             registerSection.show()
             resultSection.show()
         case .unregister:
+            userAgentSection.show()
             registerSection.show()
             resultSection.hide()
         }
     }
     
+    func createUserAgent() {
+        guard let login = loginRow.value else {
+            showError("Login is nil")
+            return
+        }
+        ua = UserAgent(UserAgentOptions(uri: .apirtc(login)))
+        state = .unregister
+        DispatchQueue.main.async {
+            if let rowNum = self.form.rowBy(tag: "CreateUserAgent")?.indexPath?.row {
+                self.userAgentSection.remove(at: rowNum)
+            }
+        }
+    }
+    
     func register() {
-        
         showActivityView()
-
-        ua.register() { (error, session) in
+        
+        guard let password = passwordRow.value else {
+            showError("Password is nil")
+            return
+        }
+        let registerInfo = RegisterInformation(password: password)
+        ua?.register(registerInformation: registerInfo) { (error, session) in
             if let error = error {
                 showError(error)
                 return
@@ -130,7 +180,7 @@ class UserAgentRegistrationExternalViewController: FormViewController {
                 return
             }
             self.state = .register
-            self.resultRow.title = "Your id is: "
+            self.resultRow.title = "Your id is"
             self.resultRow.value = session.id
             
             DispatchQueue.main.async {
@@ -140,12 +190,17 @@ class UserAgentRegistrationExternalViewController: FormViewController {
     }
     
     func unregister() {
-        ua.unregister { (error) in
+        showActivityView()
+        
+        ua?.unregister { (error) in
             if let error = error {
                 showError(error)
                 return
             }
             self.state = .unregister
+            DispatchQueue.main.async {
+                self.hideActivityView()
+            }
         }
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0Kc-60-I5e">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0Kc-60-I5e">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,7 +12,6 @@
         <!--Sample-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController id="BYZ-38-t0r" customClass="StartViewController" customModule="SampleApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -28,13 +27,13 @@
                         <segue destination="hlK-sM-GMf" kind="show" identifier="CallViewController" id="9IU-eq-PIM"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="502" y="63"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="53I-k1-DNK">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9Wi-L3-4rP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="0Kc-60-I5e" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="a8u-Dv-weR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -44,6 +43,7 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="xxP-sY-tBU"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Wi-L3-4rP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-303" y="63"/>
         </scene>
@@ -59,8 +59,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="User Agent" id="kBK-fy-zzA"/>
                     <connections>
-                        <segue destination="6aL-J8-Hic" kind="show" identifier="UserAgentRegistrationExternalViewController" id="3n0-gU-ALz"/>
-                        <segue destination="off-5V-egV" kind="show" identifier="UserAgentRegistrationIntegratedViewController" id="FYE-pl-Yt4"/>
+                        <segue destination="6aL-J8-Hic" kind="show" identifier="UserAgentGuestRegistrationViewController" id="3n0-gU-ALz"/>
+                        <segue destination="off-5V-egV" kind="show" identifier="UserAgentUsingAccountRegistrationViewController" id="FYE-pl-Yt4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SWl-qp-RwJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -82,45 +82,60 @@
                         <segue destination="DyK-yZ-0ZX" kind="show" identifier="ConversationViewController" id="gTp-sV-oyp"/>
                         <segue destination="ZOx-Lr-sP6" kind="show" identifier="ConversationMediaDeviceSelectionViewController" id="YmZ-lh-EMB"/>
                         <segue destination="Lto-0s-2Mr" kind="show" identifier="ConversationMuteViewController" id="96q-sn-brn"/>
-                        <segue destination="a7b-HL-AQ5" kind="show" identifier="ConversationAdvancedPublishSubscribeViewController" id="e0r-v9-oC5"/>
-                        <segue destination="bxu-sb-dKR" kind="show" identifier="ConversationJoinLeaveViewController" id="3uG-78-e0B"/>
+                        <segue destination="dZW-lW-hnJ" kind="show" identifier="ConversationChatViewController" id="mOf-Ic-WjP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tsJ-Rr-hS4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1377" y="63"/>
         </scene>
-        <!--External registration-->
+        <!--Guest registration-->
         <scene sceneID="5u6-nP-Whb">
             <objects>
-                <viewController id="6aL-J8-Hic" customClass="UserAgentRegistrationExternalViewController" customModule="SampleApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="6aL-J8-Hic" customClass="UserAgentGuestRegistrationViewController" customModule="SampleApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jff-HV-zKV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="lvi-R8-dh6"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="External registration" id="fKd-Z9-cZL"/>
+                    <navigationItem key="navigationItem" title="Guest registration" id="fKd-Z9-cZL"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zl1-Mi-aeB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1358" y="-2194"/>
         </scene>
-        <!--Integrated registration-->
+        <!--User registration-->
         <scene sceneID="39Z-y5-u7U">
             <objects>
-                <viewController id="off-5V-egV" customClass="UserAgentRegistrationIntegratedViewController" customModule="SampleApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="off-5V-egV" customClass="UserAgentUsingAccountRegistrationViewController" customModule="SampleApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l98-Kx-9vx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="Izb-xe-BYb"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Integrated registration" id="bFa-Nh-Q4P"/>
+                    <navigationItem key="navigationItem" title="User registration" id="bFa-Nh-Q4P"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DBD-Te-4G5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2106" y="-2194"/>
+        </scene>
+        <!--Conversation Chat View Controller-->
+        <scene sceneID="87O-fM-dO1">
+            <objects>
+                <viewController id="dZW-lW-hnJ" customClass="ConversationChatViewController" customModule="SampleApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="beJ-VY-GTA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Jma-yD-6ew"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="QzY-lZ-bxF"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZzA-Q2-Rn1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2126" y="754"/>
         </scene>
         <!--Conversation basic-->
         <scene sceneID="iyY-Sk-SHZ">
@@ -169,38 +184,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j2q-Jc-XM9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2126" y="63"/>
-        </scene>
-        <!--Join leave-->
-        <scene sceneID="4qk-ML-Kw6">
-            <objects>
-                <viewController id="bxu-sb-dKR" customClass="ConversationJoinLeaveViewController" customModule="SampleApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="DXC-B7-WGA">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="pcc-mQ-eA8"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Join leave" id="iaj-77-sM7"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eic-82-nBA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1377" y="771"/>
-        </scene>
-        <!--Advanced publish subscribe-->
-        <scene sceneID="6Ml-5Z-9Xg">
-            <objects>
-                <viewController id="a7b-HL-AQ5" customClass="ConversationAdvancedPublishSubscribeViewController" customModule="SampleApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ddb-g6-6A4">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="gOP-A0-9Uj"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Advanced publish subscribe" id="TCU-FU-tjf"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vkb-NJ-c5h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2126" y="760"/>
         </scene>
         <!--Create streams-->
         <scene sceneID="QCb-Ji-JQY">

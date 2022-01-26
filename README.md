@@ -8,7 +8,7 @@ These samples can be tested with our [web tutorials](https://dev.apirtc.com/tuto
 
 ## Requirements
 
-iOS 13+
+iOS 14+
 
 ## Installation
 

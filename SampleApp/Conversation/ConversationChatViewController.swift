@@ -1,22 +1,18 @@
 //
-//  ConversationViewController.swift
+//  ConversationChatViewController.swift
 //  SampleApp
 //
-//  Created by Maelle Saiag on 06/11/2020.
+//  Created by Maelle Saiag on 03/12/2020.
 //  Copyright © 2020 Apizee. All rights reserved.
 //
 
-import UIKit
 import Eureka
 import ApiRTCSDK
 
-enum ConversationViewControllerState {
-    case initial
-    case joined
-}
+// Web chat and push sample: https://apizee.github.io/ApiRTC-examples/conferencing_chat_file_transfer/index.html
 
-class ConversationViewController: FormViewController {
-    
+class ConversationChatViewController: FormViewController {
+            
     var ua: UserAgent!
     
     var session: Session?
@@ -32,7 +28,10 @@ class ConversationViewController: FormViewController {
     var conversationIdSection: Section!
     var conversationIdRow: LabelRow!
         
-    var streamsSection: Section!
+    var messageChatSection: Section!
+    var messageChatTextRow: TextRow!
+    
+    var pushDataSection: Section!
     
     var state: ConversationViewControllerState = .initial {
         didSet {
@@ -104,14 +103,35 @@ class ConversationViewController: FormViewController {
             $0.title = "Conversation ID"
         }
         
-        streamsSection = Section()
-                
+        //
+        
+        messageChatSection = Section("Message")
+        messageChatTextRow = TextRow() {
+            $0.title = "Message"
+        }
+        
+        let messageSendButtonRow = ButtonRow() {
+            $0.title = "Send"
+        }
+        .onCellSelection { cell, row in
+            self.send()
+            self.messageChatTextRow.resetRowValue()
+            self.messageChatTextRow.updateCell()
+        }
+        
+        //
+        
+        pushDataSection = Section("Push data")
+
+        let pushDataButtonRow = ButtonRow() {
+            $0.title = "Push"
+        }
+        .onCellSelection { cell, row in
+            self.push()
+        }
+                        
         state = .initial
         
-        createForm()
-    }
-    
-    func createForm() {
         form
             +++ Section()
             <<< localIdRow
@@ -120,10 +140,13 @@ class ConversationViewController: FormViewController {
             <<< joinConversationButtonRow
             +++ conversationIdSection
             <<< conversationIdRow
-
-            +++ streamsSection
+            +++ messageChatSection
+            <<< messageChatTextRow
+            <<< messageSendButtonRow
+            +++ pushDataSection
+            <<< pushDataButtonRow
     }
-    
+        
     @objc func close() {
         
         showActivityView()
@@ -156,11 +179,13 @@ class ConversationViewController: FormViewController {
         case .initial:
             joinConversationSection.show()
             conversationIdSection.hide()
-            streamsSection.hide()
+            messageChatSection.hide()
+            pushDataSection.hide()
         case .joined:
             joinConversationSection.hide()
             conversationIdSection.show()
-            streamsSection.show()
+            messageChatSection.show()
+            pushDataSection.show()
         }
     }
         
@@ -201,7 +226,6 @@ class ConversationViewController: FormViewController {
                 showMessage("Access denied")
             }
             self.conversationIdRow.value = conversationId
-            self.publish()
         })
     }
     
@@ -215,101 +239,60 @@ class ConversationViewController: FormViewController {
             case .left:
                 showMessage("Left")
                 self.state = .initial
-            case .streamListChanged(let type, let info):
-                self.handleStreamListUpdate(type, info)
-            case .streamAdded(let stream):
-                self.handleNewStream(stream)
-            case .streamRemoved(let stream):
-                self.handleStreamRemoving(stream.id)
+            case .receiveChatMessage(let message):
+                showMessage(message.text)
             default:
                 break
             }
         })
     }
-    
-    func publish() {
         
-        guard let conversation = conversation else {
-            showError("Can't publish, conversation is nil")
+    //
+    
+    func send() {
+        
+        guard let message = messageChatTextRow.value else {
+            showError("Message is nil")
             return
         }
-
-        var stream: ApiRTCStream!
-
-        do {
-            stream = try ApiRTCStream.createCameraStream(position: .front)
-        }
-        catch {
-            showError(error)
-            return
-        }
-
-        conversation.publish(stream: stream) { (error, stream) in
+        
+        conversation?.sendMessage(message: message, completion: { error, message in
             if let error = error {
                 showError(error)
                 return
             }
-        }
+        })
     }
     
-    func handleStreamListUpdate(_ type: StreamInfoType, _ info: StreamInfo) {
-     
-        switch type {
-        case .added:
-            if info.isRemote {
-                self.subscribeToStreamWithId(info.streamId)
-            }
-        case .removed:
-            handleStreamRemoving(info.streamId)
-        default:
-            break
-        }
-    }
-    
-    func subscribeToStreamWithId(_ streamId: String) {
+    func push() {
         
-        guard let conversation = conversation else {
-            showError("Can't subscribe, conversation is nil")
+        let image = UIImage(named: "earth")
+        
+        guard let data = image?.jpegData(compressionQuality: 1) else {
+            showError("Data nil")
             return
         }
-
-        conversation.subscribeToStream(streamId: streamId)
-    }
-    
-    func handleNewStream(_ stream: ApiRTCStream) {
         
-        func handle() {
-            switch stream.direction {
-            case .outgoing:
-                let newLocalStreamRow = LocalStreamRow()
-                newLocalStreamRow.tag = stream.id
-                streamsSection.append(newLocalStreamRow)
-                newLocalStreamRow.cell.addStream(stream)
-            case .incoming:
-                let remoteStreamRow = RemoteStreamRow()
-                remoteStreamRow.tag = stream.id
-                streamsSection.append(remoteStreamRow)
-                remoteStreamRow.cell.addStream(stream)
-            default:
-                break
+        let descriptor = try! PushBufferDataDescriptor(data: data, filename: "earth.png", type: "png")
+        conversation?.pushData(descriptor: descriptor, completion: { [weak self] error, info in
+            guard let `self` = self else { return }
+            
+            if let error = error {
+                showError(error)
+                return
             }
-        }
-
-        DispatchQueue.main.async {
-            handle()
-        }
-    }
-    
-    func handleStreamRemoving(_ streamId: String) {
-        
-        func handle() {
-            if let rowNum = form.rowBy(tag: streamId)?.indexPath?.row {
-                streamsSection.remove(at: rowNum)
+            
+            guard let url = info?.url else {
+                showError("Url nil")
+                return
             }
-        }
-
-        DispatchQueue.main.async {
-            handle()
-        }
+            
+            self.conversation?.sendMessage(message: "New image uploaded: " + url, completion: { error, message in
+                if let error = error {
+                    showError(error)
+                    return
+                }
+            })
+        })
     }
 }

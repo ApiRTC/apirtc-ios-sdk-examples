@@ -39,7 +39,7 @@ class StartViewController: FormViewController {
                 $0.title = "Stream management"
                 $0.presentationMode = .segueName(segueName: "StreamsViewController", onDismiss: nil)
             }
-            
+        
             <<< TextRow() {
                 $0.title = "SDK Version"
                 $0.disabled = true

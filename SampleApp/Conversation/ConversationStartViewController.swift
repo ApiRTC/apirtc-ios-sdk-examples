@@ -35,13 +35,8 @@ class ConversationStartViewController: FormViewController {
             }
         
             <<< ButtonRow() {
-                $0.title = "Advanced publish subscribe"
-                $0.presentationMode = .segueName(segueName: "ConversationAdvancedPublishSubscribeViewController", onDismiss: nil)
-            }
-        
-            <<< ButtonRow() {
-                $0.title = "Join and leave"
-                $0.presentationMode = .segueName(segueName: "ConversationJoinLeaveViewController", onDismiss: nil)
+                $0.title = "Chat and push data"
+                $0.presentationMode = .segueName(segueName: "ConversationChatViewController", onDismiss: nil)
             }
     }
 }
