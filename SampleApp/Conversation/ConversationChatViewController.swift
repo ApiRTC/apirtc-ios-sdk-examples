@@ -256,12 +256,12 @@ class ConversationChatViewController: FormViewController {
             return
         }
         
-        conversation?.sendMessage(message: message, completion: { error, message in
+        conversation?.sendMessage(message: message) { error, message in
             if let error = error {
                 showError(error)
                 return
             }
-        })
+        }
     }
     
     func push() {

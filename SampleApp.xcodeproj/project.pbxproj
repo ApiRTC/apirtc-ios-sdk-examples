@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		0541BEEB0CCEF0D443D27D33 /* Pods_App_SampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39397699BC0DD41F6FC71A22 /* Pods_App_SampleApp.framework */; };
 		411B55A927A0673C00CCB935 /* ConversationChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B55A827A0673C00CCB935 /* ConversationChatViewController.swift */; };
-		411B55AB27A0707900CCB935 /* ApiRTCSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 411B55AA27A0707900CCB935 /* ApiRTCSDK.framework */; };
-		411B55AC27A0707900CCB935 /* ApiRTCSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 411B55AA27A0707900CCB935 /* ApiRTCSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		411B55B227A1A2B600CCB935 /* ConversationWhiteboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B55B127A1A2B600CCB935 /* ConversationWhiteboardViewController.swift */; };
 		411B55B427A1A4A900CCB935 /* WhiteboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B55B327A1A4A900CCB935 /* WhiteboardViewController.swift */; };
 		4124DB9C2201C5B6005E4183 /* RemoteStreamRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4124DB9B2201C5B6005E4183 /* RemoteStreamRow.swift */; };
@@ -38,20 +36,6 @@
 		B5195CE42578D52B0019C267 /* ConversationMuteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5195CE32578D52B0019C267 /* ConversationMuteViewController.swift */; };
 		B5195CEB257D77800019C267 /* StreamsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5195CEA257D77800019C267 /* StreamsViewController.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		411B55AD27A0707900CCB935 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				411B55AC27A0707900CCB935 /* ApiRTCSDK.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		39397699BC0DD41F6FC71A22 /* Pods_App_SampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App_SampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,7 +83,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				411B55AB27A0707900CCB935 /* ApiRTCSDK.framework in Frameworks */,
 				416D542121EE0EBE00F81BE8 /* NetworkExtension.framework in Frameworks */,
 				416D541F21EE0E9E00F81BE8 /* AudioToolbox.framework in Frameworks */,
 				0541BEEB0CCEF0D443D27D33 /* Pods_App_SampleApp.framework in Frameworks */,
@@ -245,7 +228,6 @@
 				41BDA430215A815700230631 /* Frameworks */,
 				41BDA431215A815700230631 /* Resources */,
 				7E82A501B9CB069ED84700BB /* [CP] Embed Pods Frameworks */,
-				411B55AD27A0707900CCB935 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

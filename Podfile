@@ -7,7 +7,6 @@ workspace 'SampleApp.xcworkspace'
 inhibit_all_warnings!
 
 project 'SampleApp.xcodeproj'
-project '../ios-apirtc-sdk/ApiRTCSDK.xcodeproj'
 
 abstract_target 'App' do
 
@@ -26,10 +25,7 @@ abstract_target 'App' do
 		pod 'Eureka', '5.3.4'
 		pod 'SnapKit', '5.0.1'
 		pod 'SwiftMessages', '9.0.6'
-	end
-
-	target 'ApiRTCSDK' do
-	    project '../ios-apirtc-sdk/ApiRTCSDK.xcodeproj'
+		pod 'ApiRTCSDK', '1.0.3'
 	end
 
 end
