@@ -1,4 +1,4 @@
-#  ApiRTC iOS Tutorials
+#  ApiRTC iOS Samples
 
 Samples for [ApiRTC iOS SDK](https://github.com/apizee/ApiRTC-iOS-SDK).
 
