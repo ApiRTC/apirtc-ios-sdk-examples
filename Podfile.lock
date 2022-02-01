@@ -1,9 +1,12 @@
 PODS:
   - Alamofire (5.5.0)
-  - ApiRTCSDK (1.0.3):
+  - ApiRTCSDK (1.0.5):
     - Alamofire (= 5.5.0)
     - CocoaAsyncSocket (= 7.6.5)
+    - Connectivity (= 5.0.0)
     - GoogleWebRTC (= 1.1.31999)
+    - ReactorKit (= 3.2.0)
+    - Resolver (= 1.5.0)
     - RxRelay (= 6.5.0)
     - RxSwift (= 6.5.0)
     - Socket.IO-Client-Swift (= 16.0.1)
@@ -28,18 +31,9 @@ PODS:
   - WeakMapTable (1.2.0)
 
 DEPENDENCIES:
-  - Alamofire (= 5.5.0)
-  - ApiRTCSDK (= 1.0.3)
-  - CocoaAsyncSocket (= 7.6.5)
-  - Connectivity (= 5.0.0)
+  - ApiRTCSDK (= 1.0.5)
   - Eureka (= 5.3.4)
-  - GoogleWebRTC (= 1.1.31999)
-  - ReactorKit (= 3.2.0)
-  - Resolver (= 1.5.0)
-  - RxRelay (= 6.5.0)
-  - RxSwift (= 6.5.0)
   - SnapKit (= 5.0.1)
-  - Socket.IO-Client-Swift (= 16.0.1)
   - SwiftMessages (= 9.0.6)
 
 SPEC REPOS:
@@ -62,7 +56,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
-  ApiRTCSDK: 21d14605935164dac1a34d19daff5c7c27ae94f7
+  ApiRTCSDK: 91ce03f92831f0d1762bce0e2ee8ef31279b8740
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   Connectivity: e990703fb8d8db54649ea05facac92000cc0f3eb
   Eureka: 60cf058f86a8fb3ed26165ba5292b9850361b0a6
@@ -77,6 +71,6 @@ SPEC CHECKSUMS:
   SwiftMessages: f0c7ef4705a570ad6c5e208b611f4333e660ed92
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: f1002925d4cf62087b5829d26526f26b99315273
+PODFILE CHECKSUM: e99a733f30180830501c24e0dacd1912bd59d127
 
 COCOAPODS: 1.11.2
