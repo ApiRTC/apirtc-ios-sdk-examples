@@ -279,13 +279,13 @@ class ConversationViewController: FormViewController {
     func handleNewStream(_ stream: ApiRTCStream) {
         
         func handle() {
-            switch stream.direction {
-            case .outgoing:
+            switch stream.source {
+            case .local:
                 let newLocalStreamRow = LocalStreamRow()
                 newLocalStreamRow.tag = stream.id
                 streamsSection.append(newLocalStreamRow)
                 newLocalStreamRow.cell.addStream(stream)
-            case .incoming:
+            case .remote:
                 let remoteStreamRow = RemoteStreamRow()
                 remoteStreamRow.tag = stream.id
                 streamsSection.append(remoteStreamRow)

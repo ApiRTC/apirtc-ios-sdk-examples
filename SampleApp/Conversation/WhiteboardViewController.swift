@@ -12,13 +12,13 @@ import SnapKit
 
 class WhiteboardViewController: UIViewController {
 
-    var whiteboardClient: WhiteboardClient!
+    var whiteboard: Whiteboard!
     
     var containerView: UIView!
 
-    init(_ whiteboardClient: WhiteboardClient) {
+    init(_ whiteboard: Whiteboard) {
         super.init(nibName: nil, bundle: nil)
-        self.whiteboardClient = whiteboardClient
+        self.whiteboard = whiteboard
     }
     
     required init?(coder: NSCoder) {
@@ -35,10 +35,9 @@ class WhiteboardViewController: UIViewController {
 
         let whiteboardView = WhiteboardView(frame: containerView.bounds)
         containerView.addSubview(whiteboardView)
-        whiteboardClient.setView(whiteboardView)
         whiteboardView.setMode(.edit)
 
-        whiteboardClient.onEvent(self) { (event) in
+        whiteboard.onEvent(self) { (event) in
             switch event {
             case .updateCanvasSize(let size):
                 DispatchQueue.main.async {

@@ -84,9 +84,8 @@ class ConversationMuteViewController: ConversationViewController {
     
     override func handleNewStream(_ stream: ApiRTCStream) {
         super.handleNewStream(stream)
-        if stream.direction == .outgoing {
+        if stream.source == .local {
             localStream = stream
         }
     }
-    
 }

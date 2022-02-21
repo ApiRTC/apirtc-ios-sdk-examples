@@ -30,7 +30,7 @@ class ConversationWhiteboardViewController: FormViewController {
         
     var whiteboardSection: Section!
     
-    var whiteboardClient: WhiteboardClient?
+    var whiteboard: Whiteboard?
     
     var state: ConversationViewControllerState = .initial {
         didSet {
@@ -220,7 +220,7 @@ class ConversationWhiteboardViewController: FormViewController {
                 showMessage("Left")
                 self.state = .initial
             case .newWhiteboardSession(let client):
-                self.whiteboardClient = client
+                self.whiteboard = client
                 self.startWhiteboard()
             default:
                 break
@@ -232,32 +232,32 @@ class ConversationWhiteboardViewController: FormViewController {
     
     func startWhiteboard() {
         
-        func openWhiteboard(_ client: WhiteboardClient) {
+        func openWhiteboard(_ whiteboard: Whiteboard) {
             DispatchQueue.main.async {
-                let vc = WhiteboardViewController(client)
+                let vc = WhiteboardViewController(whiteboard)
                 vc.modalPresentationStyle = .fullScreen
                 self.present(vc, animated: true)
             }
         }
         
-        if let client = whiteboardClient {
-            openWhiteboard(client)
+        if let whiteboard = whiteboard {
+            openWhiteboard(whiteboard)
         }
         else {
-            conversation?.startWhiteboardSession(completion: { error, client in
+            conversation?.startWhiteboardSession(completion: { error, whiteboard in
                 
                 if let error = error {
                     showError(error)
                     return
                 }
                 
-                guard let client = client else {
-                    showError("Client nil")
+                guard let whiteboard = whiteboard else {
+                    showError("Whiteboard nil")
                     return
                 }
                 
-                self.whiteboardClient = client
-                openWhiteboard(client)
+                self.whiteboard = whiteboard
+                openWhiteboard(whiteboard)
             })
         }
     }
